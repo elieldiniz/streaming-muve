@@ -2,10 +2,14 @@
 import { SlMagnifier } from "react-icons/sl";
 import { useState } from "react";
 
-export default function Header() {
+type HeaderProps = {
+  onSearch: (query: string) => void;
+};
+
+export default function Header({ onSearch }: HeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState(""); // Estado para armazenar a consulta de pesquisa
+  const [searchQuery, setSearchQuery] = useState("");
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -15,15 +19,20 @@ export default function Header() {
     setSearchOpen(!searchOpen);
   };
 
-  const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearchInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setSearchQuery(event.target.value);
   };
-  
 
   const handleSearch = () => {
-    // Implemente a lógica de pesquisa aqui com base em 'searchQuery'
-    // Por enquanto, vamos apenas registrar a consulta de pesquisa no console.
     console.log("Consulta de pesquisa:", searchQuery);
+    onSearch(searchQuery); // Chame a função passada como propriedade para atualizar a pesquisa
+  };
+
+  // Função para passar a consulta de pesquisa para o CardFilmes
+  const updateSearchQuery = (query: string) => {
+    // Coloque aqui a lógica para passar a consulta de pesquisa para o CardFilmes
   };
 
   const closeSearch = () => {
@@ -36,7 +45,7 @@ export default function Header() {
       <ul
         className={`${
           menuOpen ? "block" : "hidden"
-        } md:hidden justify-center gap-10 cursor-pointer text-cyan-500 font-medium md:items-center md:w-full md:text-center`}
+        } md:hidden justify-center gap-10 cursor-pointer text-cyan-500 font-medium md:items-center md:w-full md:text-center `}
       >
         <li className="border-b border-red-700">Filmes</li>
         <li className="border-b border-red-700">Series</li>
@@ -69,7 +78,7 @@ export default function Header() {
               <input
                 type="text"
                 placeholder="Procurar Filme..."
-                className="border rounded-lg bg-gray-300 text-gray-800 p-1 pl-2 max-[320px]:w-40"
+                className="border rounded-lg bg-gray-300 text-gray-800 p-1 pl-2 max-[320px]:w-40 h-9"
                 value={searchQuery}
                 onChange={handleSearchInputChange}
               />

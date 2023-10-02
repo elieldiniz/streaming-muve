@@ -15,6 +15,10 @@ interface Filme {
   poster_path: string
 }
 
+interface FilmesListProps {
+  items: Filme[]; // onde 'Filme' é o tipo definido anteriormente
+}
+
 async function fetchFilmesPopulares() {
   try {
     const filmes = await buscarFilmesPopulares();
@@ -25,7 +29,7 @@ async function fetchFilmesPopulares() {
   }
 }
 
-export default function FilmesList() {
+export default function FilmesList({ items }: FilmesListProps) {
   const [filmeSelecionado, setFilmeSelecionado] = useState<Filme | null>(null);
   const [filmes, setFilmes] = useState<Filme[]>([]);
 

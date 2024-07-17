@@ -1,9 +1,11 @@
 // utils/api.ts
+require('dotenv').config()
 
 export default async function buscarFilmesPopulares(): Promise<any[]> {
     try {
-      const url = `https://api.themoviedb.org/3/movie/popular?page=1&api_key=fb1cdcea5467d0fe3c1009cebe3c076d`;
-  
+
+      
+      const url = `https://api.themoviedb.org/3/movie/popular?page=1&api_key=${process.env.SECRET_KEY}`;
       const options: RequestInit = {
         method: 'GET',
         headers: {
